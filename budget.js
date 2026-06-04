@@ -44,18 +44,18 @@ const formatTransaction = (transaction) => {
     return `[${transaction.id}] ${transaction.description} | $${transaction.amount} (${transaction.type})`;
 };
 
-const addTransactionSafe=(description, amount, type) => {
+const validateTransaction=(description, amount, type) => {
     if(typeof description !=="string" || description.trim() === "" )
     {
-    return null;
+    return "Description must be a non-empty string";
         }
     if (typeof amount !== "number" || amount <= 0) {
-        return null;
+        return "Amount must be a positive number";
     }
     if(type !== "income" && type !== "expense") {
-        return null;
+        return "Type must be either 'income' or 'expense'";
 }
-return addTransaction(description, amount, type);
+return null;
 }
 
 const renderTransactions = () => {
@@ -81,11 +81,20 @@ form.addEventListener("submit", (event) => {
     const description = document.getElementById("description").value;
     const amount=document.getElementById("amount").value;
     const type=document.getElementById("type").value;
-   const result= addTransactionSafe(description,Number(amount),type);
+   const result=validateTransaction(description, Number(amount), type);
     if (result !== null) {
+        const errorDiv = document.getElementById("error-message");
+        errorDiv.textContent = result;
+    }
+    else{
+        addTransaction(description, Number(amount), type);
         renderTransactions();
         renderBalance();
-        form.reset();
+    const errorDiv = document.getElementById("error-message");
+    errorDiv.textContent = ""; 
+    form.reset();
     }
     
 });
+
+

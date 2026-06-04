@@ -6,8 +6,20 @@
 </head>
 <body>
     <h1>Budget Tracker</h1>
+    <div id="error-message" style="color: red;"></div>
     <div id="balance">Balance: $0</div>
     <ul id="transaction-list"></ul>
+
+
+<form id="transaction-form">
+    <input type="text" id="description" placeholder="Description" required>
+    <input type="number" id="amount" placeholder="Amount" required>
+    <select id="type" required>
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+    </select>
+    <button type="submit">Add Transaction</button>
+</form>
 
     <script src="budget.js"></script>
 </body>
