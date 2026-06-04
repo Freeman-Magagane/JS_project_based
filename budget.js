@@ -82,6 +82,8 @@ form.addEventListener("submit", (event) => {
     const amount=document.getElementById("amount").value;
     const type=document.getElementById("type").value;
    const result=validateTransaction(description, Number(amount), type);
+
+   
     if (result !== null) {
         const errorDiv = document.getElementById("error-message");
         errorDiv.textContent = result;
