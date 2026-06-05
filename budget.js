@@ -63,7 +63,15 @@ const renderTransactions = () => {
     container.innerHTML = "";
     transactions.forEach(transaction => {
 const item = document.createElement("li");
+const deleteButton = document.createElement("button");
+deleteButton.textContent = "Delete";
+deleteButton.addEventListener("click", () => {
+    deleteTransaction(transaction.id);
+    renderTransactions();
+    renderBalance();
+});
 item.textContent = formatTransaction(transaction);
+item.appendChild(deleteButton);
 container.appendChild(item);
     });
 }
@@ -98,5 +106,12 @@ form.addEventListener("submit", (event) => {
     }
     
 });
+
+const deleteTransaction = (id) => {
+    const index = transactions.findIndex((t) => t.id === id);
+    if (index !== -1) {
+        transactions.splice(index, 1);
+    }
+}
 
 
